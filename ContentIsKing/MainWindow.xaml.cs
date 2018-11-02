@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContentIsKing.MasterK;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,10 @@ namespace ContentIsKing
         public MainWindow()
         {
             InitializeComponent();
-          
+            string s = "";
+           
+            s = Main_MasterK.hello;
+            MessageBox.Show(s);     
         }
 
 
