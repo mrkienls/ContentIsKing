@@ -69,6 +69,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterK\GetDataFromUrl.cs" />
+    <Compile Include="MasterK\Main_MasterK.cs" />
+    <Compile Include="MasterK\Post_To_abcxyz.cs" />
+    <Compile Include="MasterK\Post_To_Webtalk.cs" />
+    <Compile Include="MasterK\Post_To_Xenzu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
