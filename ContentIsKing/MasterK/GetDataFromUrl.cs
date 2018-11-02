@@ -28,7 +28,7 @@ namespace ContentIsKing.MasterK
         /*Lay noi dung va hinh anh POSTs tu HTML*/
         public static string[] getPostFromHtml(string html)
         {
-           var content = System.Text.RegularExpressions.Regex.Match(html, "text\\%22\\%3A\\%22(.+)\\%22\\%2C\\%22ranges").Groups[1].Value;
+           var content = System.Text.RegularExpressions.Regex.Match(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
             string[] result = new string[] { };
             return result;
         }
