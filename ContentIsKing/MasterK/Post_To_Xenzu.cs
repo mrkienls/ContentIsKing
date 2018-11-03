@@ -41,8 +41,12 @@ namespace ContentIsKing.MasterK
                 request.AddParameter("id_community", "0");
                 request.AddParameter("dpostid", dpostid);
                 request.AddParameter("txt", content);
-                request.AddHeader("content-type", "multipart/form-data");
-                request.AddFile("thefile", pathImage);
+                if (pathImage!="")
+                {
+                    request.AddHeader("content-type", "multipart/form-data");
+                    request.AddFile("thefile", pathImage);
+                }
+                
 
                 // execute the request
                 IRestResponse response1 = client.Execute(request);
