@@ -29,10 +29,8 @@ namespace ContentIsKing.MasterK
         public static List<PostContent> getPostFromHtml(string html)
         {
             List<string> post_temps = new List<string>();
-            //  System.Text.RegularExpressions.MatchCollection contents = System.Text.RegularExpressions.Regex.Matches(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
-            // MatchCollection contents = Regex.Matches(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>");
-
-            MatchCollection contents = Regex.Matches(html, @"userContentWrapper(.+)<\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/form>");
+            MatchCollection contents = Regex.Matches(html, @"userContentWrapper(.*?)<\/div><\/a><\/div><\/div><\/div><\/div><\/div><div><\/div><\/div><\/div><div><form");
+            
             foreach (Match content in contents)
             {
                 foreach (Capture capture in content.Captures)
@@ -41,29 +39,33 @@ namespace ContentIsKing.MasterK
                 }
             }
 
-
             List<PostContent> postContents = new List<PostContent>();
             PostContent postContent = new PostContent();
-           
+            string s = "";
             foreach (string post_temp in post_temps)
             {
-                postContent.content =Regex.Match(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
-                postContent.image = "";
+                postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
+                s = Regex.Match(post_temp, "src=\"(.*?)alt(.*?)src=\"(.*?)\"").Groups[3].Value;
+                postContent.image = s.Replace("amp;", "");
                 postContents.Add(postContent);
            }
-
           return postContents;
         }
+    
+        /*Download image from urlImage to PC*/
+        public static string DownloadImage(string urlImage)
+        {
+            string path="";
 
-        static List<PostContent> postContents = new List<PostContent>();
+            return path;
+        }
 
-
-
-        //static PostContent postContent = new PostContent();
-
-
-       
     }
 
-
+    public class PostContent
+    {
+        public string content { get; set; }
+        public string image { get; set; }
+        public string video { get; set; }
+    }
 }
