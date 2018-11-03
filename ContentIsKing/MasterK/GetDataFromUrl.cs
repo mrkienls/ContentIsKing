@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-
+using System.Text.RegularExpressions;
 
 namespace ContentIsKing.MasterK
 {
@@ -26,11 +26,44 @@ namespace ContentIsKing.MasterK
         }
 
         /*Lay noi dung va hinh anh POSTs tu HTML*/
-        public static string[] getPostFromHtml(string html)
+        public static List<PostContent> getPostFromHtml(string html)
         {
-           var content = System.Text.RegularExpressions.Regex.Match(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
-            string[] result = new string[] { };
-            return result;
+            List<string> post_temps = new List<string>();
+            //  System.Text.RegularExpressions.MatchCollection contents = System.Text.RegularExpressions.Regex.Matches(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
+            // MatchCollection contents = Regex.Matches(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>");
+
+            MatchCollection contents = Regex.Matches(html, @"userContentWrapper(.+)<\/div><\/div><\/div><\/div><\/div><\/div><\/div><\/form>");
+            foreach (Match content in contents)
+            {
+                foreach (Capture capture in content.Captures)
+                {
+                     post_temps.Add(capture.Value);
+                }
+            }
+
+
+            List<PostContent> postContents = new List<PostContent>();
+            PostContent postContent = new PostContent();
+           
+            foreach (string post_temp in post_temps)
+            {
+                postContent.content =Regex.Match(html, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
+                postContent.image = "";
+                postContents.Add(postContent);
+           }
+
+          return postContents;
         }
+
+        static List<PostContent> postContents = new List<PostContent>();
+
+
+
+        //static PostContent postContent = new PostContent();
+
+
+       
     }
+
+
 }

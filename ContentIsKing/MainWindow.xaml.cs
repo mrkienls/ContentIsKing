@@ -26,10 +26,8 @@ namespace ContentIsKing
         public MainWindow()
         {
             InitializeComponent();
-            string s = "";
-           
-            s = Main_MasterK.hello;
-            MessageBox.Show(s);     
+         
+            Main_MasterK mk = new Main_MasterK();
         }
 
 
