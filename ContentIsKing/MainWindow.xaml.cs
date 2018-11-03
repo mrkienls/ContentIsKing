@@ -27,7 +27,7 @@ namespace ContentIsKing
         {
             InitializeComponent();
          
-            Main_MasterK mk = new Main_MasterK();
+            //Main_MasterK mk = new Main_MasterK();
         }
 
 

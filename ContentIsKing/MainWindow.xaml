@@ -7,6 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="0" Grid.Row="0">ngay</TextBox>
+        <ListView Grid.Column="1" Grid.Row="0"> listview URLs for Crawler</ListView>
+        <Button Grid.Column="2" Grid.Row="0" Content="Button Crawler"></Button>
+
+        <TextBox Grid.Column="0" Grid.Row="1">ngay</TextBox>
+        <ListView Grid.Column="1" Grid.Row="1">listview ACCs for Crawler</ListView>
+        <Button Grid.Column="2" Grid.Row="1" Content="Button Post"></Button>
+
+
     </Grid>
 </Window>
