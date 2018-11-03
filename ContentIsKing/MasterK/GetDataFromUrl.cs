@@ -28,7 +28,7 @@ namespace ContentIsKing.MasterK
         public static List<PostContent> getPostFromHtml(string html)
         {
             List<string> post_temps = new List<string>();
-            MatchCollection contents = Regex.Matches(html, @"userContentWrapper(.*?)<\/div><\/a><\/div><\/div><\/div><\/div><\/div><div><\/div><\/div><\/div><div><form");
+            MatchCollection contents = Regex.Matches(html, @"userContentWrapper(.*?)<\/form>");
             
             foreach (Match content in contents)
             {
@@ -39,10 +39,11 @@ namespace ContentIsKing.MasterK
             }
 
             List<PostContent> postContents = new List<PostContent>();
-            PostContent postContent = new PostContent();
+            
             string s = "";
             foreach (string post_temp in post_temps)
             {
+                PostContent postContent = new PostContent();
                 postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
                 s = Regex.Match(post_temp, "src=\"(.*?)alt(.*?)src=\"(.*?)\"").Groups[3].Value;
                 postContent.image = s.Replace("amp;", "");

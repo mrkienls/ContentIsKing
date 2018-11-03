@@ -7,7 +7,7 @@ namespace ContentIsKing.MasterK
     {
           public Main_MasterK()
         {
-            string html = GetDataFromUrl.getHTML("https://www.facebook.com/truyencuoihay/posts/");
+            string html = GetDataFromUrl.getHTML("https://www.facebook.com/pg/truyencuoingancucvui/posts/");
             List<PostContent> postContents = GetDataFromUrl.getPostFromHtml(html);
 
 
@@ -18,7 +18,7 @@ namespace ContentIsKing.MasterK
                 noidung = c.content;
                 string urlImage = c.image;
                 string pathImageSaved = GetDataFromUrl.DownloadImage(urlImage);
-                Post_To_Xenzu.post_xenzu(noidung, pathImageSaved);
+                Post_To_Xenzu.post_xenzu(noidung, pathImageSaved,"nguyentrungkienctn","cstd1234");
             }
         
 

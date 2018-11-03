@@ -10,7 +10,7 @@ namespace ContentIsKing.MasterK
 {
     static class Post_To_Xenzu
     {
-        static public void post_xenzu(string content, string pathImage)
+        static public void post_xenzu(string content, string pathImage,string user, string pass)
         {
 
            var client = new RestClient("https://www.xenzuu.com/index.php");
@@ -21,8 +21,8 @@ namespace ContentIsKing.MasterK
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
             request.AddParameter("mp", "home");
             request.AddParameter("ac", "login");
-            request.AddParameter("user", "nguyenthuylinhls");
-            request.AddParameter("pwd", "cstd1234");
+            request.AddParameter("user", user);
+            request.AddParameter("pwd", pass);
             request.AddParameter("autologin", "1");
 
             IRestResponse response = client.Execute(request);
