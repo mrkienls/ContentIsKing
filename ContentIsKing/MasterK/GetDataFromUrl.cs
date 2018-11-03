@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ContentIsKing.MasterK
@@ -55,7 +54,24 @@ namespace ContentIsKing.MasterK
         /*Download image from urlImage to PC*/
         public static string DownloadImage(string urlImage)
         {
-            string path="";
+            string path="temp.jpg";
+
+            HttpWebRequest lxRequest = (HttpWebRequest)WebRequest.Create(urlImage);
+
+            // returned values are returned as a stream, then read into a string
+            string lsResponse = string.Empty;
+            using (HttpWebResponse lxResponse = (HttpWebResponse)lxRequest.GetResponse())
+            {
+                using (BinaryReader reader = new BinaryReader(lxResponse.GetResponseStream()))
+                {
+                    Byte[] lnByte = reader.ReadBytes(1 * 1024 * 1024 * 10);
+                    using (FileStream lxFS = new FileStream(path, FileMode.Create))
+                    {
+                        lxFS.Write(lnByte, 0, lnByte.Length);
+                    }
+                }
+            }
+       
 
             return path;
         }
