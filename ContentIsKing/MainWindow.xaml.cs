@@ -32,14 +32,11 @@ namespace ContentIsKing
      
             InitializeComponent();
 
-            //Main_MasterK mk = new Main_MasterK();
+            Main_MasterK mk = new Main_MasterK();
 
           
-            //  MainDatabase.Insert();
-            XElement x= MainDatabase.readXML(path);
-
-         //   int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
-          //  int oddNumbers = numbers.Count(n => n % 2 == 1);
+        
+     
         }
 
 

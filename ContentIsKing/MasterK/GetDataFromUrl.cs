@@ -44,7 +44,7 @@ namespace ContentIsKing.MasterK
             foreach (string post_temp in post_temps)
             {
                 PostContent postContent = new PostContent();
-                postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p><\/div>").Groups[2].Value;
+                postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p>").Groups[2].Value;
                 s = Regex.Match(post_temp, "src=\"(.*?)alt(.*?)src=\"(.*?)\"").Groups[3].Value;
                 postContent.image = s.Replace("amp;", "");
                 postContents.Add(postContent);
@@ -55,7 +55,7 @@ namespace ContentIsKing.MasterK
         /*Download image from urlImage to PC*/
         public static string DownloadImage(string urlImage)
         {
-            string path="temp.jpg";
+            string path=@"media\" + DateTime.Now.ToString("yyyyMMddTHHmmss.fff") + ".jpg";
 
             HttpWebRequest lxRequest = (HttpWebRequest)WebRequest.Create(urlImage);
 

@@ -28,7 +28,11 @@ namespace ContentIsKing.MasterK
                 else
                 { pathImageSaved = ""; }
 
-                Post_To_Xenzu.post_xenzu(noidung, pathImageSaved,"nguyentrungkienctn","cstd1234");
+
+                // save to db xml
+                DatabaseXML.MainDatabase.saveXML("db.xml",noidung,pathImageSaved);
+
+                //   Post_To_Xenzu.post_xenzu(noidung, pathImageSaved,"nguyentrungkienctn","cstd1234");
             }
         
 

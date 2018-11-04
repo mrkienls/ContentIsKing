@@ -19,7 +19,7 @@ namespace ContentIsKing.DatabaseXML
     static public class MainDatabase
     {
       
-        public static void CreateXMLfile(string path)
+         static void CreateXMLfile(string path)
         {
             XDocument xmlDocument = new XDocument(
                new XDeclaration("1.0", "utf-8", "yes"),
@@ -50,7 +50,7 @@ namespace ContentIsKing.DatabaseXML
             xmlDocument.Save(path);
         }
 
-        public static XElement readXML(string path)
+         static XElement readXML(string path)
         {
             XElement result = null;
             XDocument xdoc = XDocument.Load(path);
@@ -59,7 +59,7 @@ namespace ContentIsKing.DatabaseXML
          
         }
 
-        public static void Insert(string path,string content,string pathImage)
+         static void Insert(string path,string content,string pathImage)
         {
             XDocument xdoc = XDocument.Load(path);
 
@@ -73,18 +73,27 @@ namespace ContentIsKing.DatabaseXML
             xdoc.Save(path);
         }
 
-        public static void Delete(string path)
+         static void Delete(string path)
         {
             XDocument xdoc = XDocument.Load(path);
             xdoc.Element("Posts").Elements("Post").Where(x => x.Element("Content").Value == "Kien").Remove();
             xdoc.Save(path);
         }
 
-        public static void Update(string path, string Content, string trangThai)
+         static void Update(string path, string Content, string trangThai)
         {
             XDocument xdoc = XDocument.Load(path);
             xdoc.Element("Posts").Elements("Post").Where(x => x.Element("Content").Value == Content).SingleOrDefault().SetElementValue("TrangThai", trangThai);
            xdoc.Save(path);
        }
+
+         public static void saveXML(string path,string content, string pathMedia)
+        {
+            XElement node = readXML(path);
+         
+            var content_dbXml = node.Element("Content").Value;
+            if (content!=content_dbXml) Insert(path,content,pathMedia);
+ 
+        }
     }
 }
