@@ -27,19 +27,30 @@ namespace ContentIsKing
     {
         public MainWindow()
         {
-            string path = "db.xml";
-            XDocument xdoc = XDocument.Load(path);
-     
+           
+
+            //XDocument xdoc = XDocument.Load(path);
+
             InitializeComponent();
+         //   Main_MasterK mk = new Main_MasterK();
 
-            Main_MasterK mk = new Main_MasterK();
 
-          
-        
-     
+            //   Post_To_Xenzu.post_xenzu(noidung, pathImageSaved,"nguyentrungkienctn","cstd1234");
+
         }
 
+        //crawler
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Main_MasterK.hengio_crawler(180);
+        }
 
-      
+        //post
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // sau 2 gio post 1 lan
+            Main_MasterK.hengio_post(120);
+
+        }
     }
 }

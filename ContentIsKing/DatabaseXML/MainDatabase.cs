@@ -50,13 +50,37 @@ namespace ContentIsKing.DatabaseXML
             xmlDocument.Save(path);
         }
 
-         static XElement readXML(string path)
+         public static XElement readXML(string path)
         {
             XElement result = null;
             XDocument xdoc = XDocument.Load(path);
+            try { 
             result = xdoc.Element("Posts").Elements("Post").Where(x => x.Element("TrangThai").Value == "0").First();
+            }
+            catch { }
+
+
             return result;
          
+        }
+
+
+        // neu content da co trong file thi return true
+        static bool content_exists(string path, string content)
+        {
+            XDocument xdoc = XDocument.Load(path);
+            XElement result = null;
+            try
+            {
+                result = xdoc.Element("Posts").Elements("Post").Where(x => x.Element("Content").Value == content).First();
+            } catch
+            {
+
+            }
+            
+
+            if (result != null) return true;
+            else  return false;
         }
 
          static void Insert(string path,string content,string pathImage)
@@ -80,7 +104,7 @@ namespace ContentIsKing.DatabaseXML
             xdoc.Save(path);
         }
 
-         static void Update(string path, string Content, string trangThai)
+         public static void Update(string path, string Content, string trangThai)
         {
             XDocument xdoc = XDocument.Load(path);
             xdoc.Element("Posts").Elements("Post").Where(x => x.Element("Content").Value == Content).SingleOrDefault().SetElementValue("TrangThai", trangThai);
@@ -90,9 +114,9 @@ namespace ContentIsKing.DatabaseXML
          public static void saveXML(string path,string content, string pathMedia)
         {
             XElement node = readXML(path);
-         
-            var content_dbXml = node.Element("Content").Value;
-            if (content!=content_dbXml) Insert(path,content,pathMedia);
+          if (!content_exists(path,content)) Insert(path, content, pathMedia);
+     //       var content_dbXml = node.Element("Content").Value;
+          //  if (content!=content_dbXml) Insert(path,content,pathMedia);
  
         }
     }

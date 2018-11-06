@@ -43,9 +43,10 @@ namespace ContentIsKing.MasterK
             string s = "";
             foreach (string post_temp in post_temps)
             {
+                
                 PostContent postContent = new PostContent();
                 postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p>").Groups[2].Value;
-                s = Regex.Match(post_temp, "src=\"(.*?)alt(.*?)src=\"(.*?)\"").Groups[3].Value;
+                s = Regex.Match(post_temp, "scaledImageFitWidth img\" src=\"(.*?)\"").Groups[1].Value;
                 postContent.image = s.Replace("amp;", "");
                 postContents.Add(postContent);
            }
