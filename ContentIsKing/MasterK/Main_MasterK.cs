@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace ContentIsKing.MasterK
 {
-     static public   class Main_MasterK
+    static public class Main_MasterK
     {
         //public  Main_MasterK()
         //{
@@ -28,7 +28,7 @@ namespace ContentIsKing.MasterK
         // Post to xenzu
         static private void dispatcherTimer_Tick_Post(object sender, EventArgs e)
         {
-            string user = "nguyenthuylinhls";
+            string user = "nguyentrungkienctn";
             string pass = "cstd1234";
             string path = "db.xml";
             XElement x = DatabaseXML.MainDatabase.readXML(path);
@@ -69,11 +69,16 @@ namespace ContentIsKing.MasterK
 
             };
 
-            foreach (string url  in URLs ) CrawlerFB.Crawrel(url, path);
+            foreach (string url in URLs) CrawlerFB.Crawrel(url, path);
+
+
+
+
+
+
+
         }
 
 
     }
-
-
 }

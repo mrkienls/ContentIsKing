@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,6 +32,10 @@ namespace ContentIsKing.MasterK
 
                 // save to db xml
                 DatabaseXML.MainDatabase.saveXML(path_saved, noidung, pathImageSaved);
+                using (StreamWriter w = File.AppendText("crawler.txt"))
+                {
+                    w.WriteLine(url);
+                }
             }
         }
     }

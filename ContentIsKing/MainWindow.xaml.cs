@@ -1,5 +1,6 @@
 ﻿using ContentIsKing.DatabaseXML;
 using ContentIsKing.MasterK;
+using ContentIsKing.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,25 +33,31 @@ namespace ContentIsKing
             //XDocument xdoc = XDocument.Load(path);
 
             InitializeComponent();
-         //   Main_MasterK mk = new Main_MasterK();
-
-
-            //   Post_To_Xenzu.post_xenzu(noidung, pathImageSaved,"nguyentrungkienctn","cstd1234");
+            txtUrlAdd.Text = "add me now";
 
         }
 
         //crawler
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Main_MasterK.hengio_crawler(180);
+            Main_MasterK.hengio_crawler(360);
+            // sau 2 gio post 1 lan
+            Main_MasterK.hengio_post(180);
         }
 
         //post
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            // sau 2 gio post 1 lan
-            Main_MasterK.hengio_post(120);
+           
 
         }
+
+        private void cmdAddUrl(object sender, RoutedEventArgs e)
+        {
+            //  MessageBox.Show(txtUrlAdd.Text);
+            MainUI.AddUrl(txtUrlAdd.Text, listUrls);
+        }
+        
+
     }
 }

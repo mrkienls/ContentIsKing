@@ -5,6 +5,7 @@ using System.Text;
 using RestSharp;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace ContentIsKing.MasterK
 {
@@ -60,7 +61,10 @@ namespace ContentIsKing.MasterK
             request1.AddParameter("mp", "home");
             request1.AddParameter("ac", "logout");
             IRestResponse response2 = client.Execute(request1);
-
+            using (StreamWriter w = File.AppendText("posts.txt"))
+            {
+                w.WriteLine(content);
+            }
 
 
         }
