@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace ContentIsKing.MasterK
 {
@@ -12,8 +13,9 @@ namespace ContentIsKing.MasterK
 
         static public void Crawrel(string url, string path_saved)
         {
-
             string html = GetDataFromUrl.getHTML(url);
+
+            
             List<PostContent> postContents = GetDataFromUrl.getPostFromHtml(html);
 
             string noidung = "";
@@ -29,6 +31,8 @@ namespace ContentIsKing.MasterK
                 { pathImageSaved = GetDataFromUrl.DownloadImage(urlImage); }
                 else
                 { pathImageSaved = ""; }
+
+                string urlVideo = c.video;
 
                 // save to db xml
                 DatabaseXML.MainDatabase.saveXML(path_saved, noidung, pathImageSaved);

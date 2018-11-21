@@ -48,6 +48,9 @@ namespace ContentIsKing.MasterK
                 postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p>").Groups[2].Value;
                 s = Regex.Match(post_temp, "scaledImageFitWidth img\" src=\"(.*?)\"").Groups[1].Value;
                 postContent.image = s.Replace("amp;", "");
+                string p = "<a href=\"(.*?)\\?__xts__";
+                s = "https://www.facebook.com" + Regex.Match(post_temp, p).Groups[1].Value;
+                postContent.video = s;
                 postContents.Add(postContent);
            }
           return postContents;

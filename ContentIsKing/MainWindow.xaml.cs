@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace ContentIsKing
@@ -28,21 +29,33 @@ namespace ContentIsKing
     {
         public MainWindow()
         {
-           
 
-            //XDocument xdoc = XDocument.Load(path);
+
+         
+
 
             InitializeComponent();
-            txtUrlAdd.Text = "add me now";
+
+
+           MainUI.LoadUrl(listUrls);  
 
         }
 
         //crawler
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Main_MasterK.hengio_crawler(360);
+            //Main_MasterK.hengio_crawler(360);
             // sau 2 gio post 1 lan
-            Main_MasterK.hengio_post(180);
+            //Main_MasterK.hengio_post(180);
+
+
+            /*test*/
+
+            
+            
+           CrawlerFB.Crawrel("https://www.facebook.com/pg/CoongDDieencos.102/posts/", "db.xml");
+
+
         }
 
         //post

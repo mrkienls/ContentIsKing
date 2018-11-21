@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
 /*
@@ -50,6 +51,10 @@ namespace ContentIsKing.DatabaseXML
             xmlDocument.Save(path);
         }
 
+
+
+      
+
          public static XElement readXML(string path)
         {
             XElement result = null;
@@ -58,7 +63,7 @@ namespace ContentIsKing.DatabaseXML
             result = xdoc.Element("Posts").Elements("Post").Where(x => x.Element("TrangThai").Value == "0").First();
             }
             catch { }
-
+            
 
             return result;
          
@@ -85,10 +90,12 @@ namespace ContentIsKing.DatabaseXML
 
          static void Insert(string path,string content,string pathImage)
         {
+            string id = DateTime.Now.ToString("yyyyMMddTHHmmss.fff") ;
+
             XDocument xdoc = XDocument.Load(path);
 
             xdoc.Element("Posts").Add(
-               new XElement("Post", new XAttribute("id", 1),
+               new XElement("Post", new XAttribute("id", id),
                        new XElement("TrangThai", "0"),
                        new XElement("Content", content),
                        new XElement("PathMedia", pathImage)

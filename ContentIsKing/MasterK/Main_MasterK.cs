@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace ContentIsKing.MasterK
@@ -60,21 +61,22 @@ namespace ContentIsKing.MasterK
         static private void dispatcherTimer_Tick_Crawerl(object sender, EventArgs e)
         {
             string path = "db.xml";
-            string[] URLs = new string[]
-            {
-                "https://www.facebook.com/pg/CoongDDieencos.102/posts/",
-                "https://www.facebook.com/giaitri.blogtamsu.vn/posts",
-                "https://www.facebook.com/pg/nhunghinhanhhaihuocvavuinhon/posts/",
-                "https://www.facebook.com/pg/DienQuanEntertainment/posts/",
+         
+            List<string> URLs = new List<string> { };
 
-            };
+            string myXmlString = File.ReadAllText("urls.xml");
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(myXmlString);
+            XmlNodeList xnList = xml.SelectNodes("/Posts/Post");
+            foreach (XmlNode xn in xnList)
+            {
+                string url = xn["Content"].InnerText;
+                URLs.Add(url);
+            }
+
+
 
             foreach (string url in URLs) CrawlerFB.Crawrel(url, path);
-
-
-
-
-
 
 
         }
