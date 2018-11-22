@@ -13,6 +13,7 @@ namespace ContentIsKing.MasterK
 
         static public void Crawrel(string url, string path_saved)
         {
+         
             string html = GetDataFromUrl.getHTML(url);
 
             
@@ -20,10 +21,16 @@ namespace ContentIsKing.MasterK
 
             string noidung = "";
             string pathImageSaved = "";
+            string pathVideoSaved = "";
             foreach (PostContent c in postContents)
             {
                 noidung = c.content;
                 noidung = Regex.Replace(noidung, "<.*?>|&.*?;", "");
+                noidung = Regex.Replace(noidung, "#(.*?)(\\w|\\d)+","");
+
+               
+
+
 
 
                 string urlImage = c.image;
@@ -33,14 +40,25 @@ namespace ContentIsKing.MasterK
                 { pathImageSaved = ""; }
 
                 string urlVideo = c.video;
+                if (urlVideo != "" && urlVideo !=null && urlVideo!=" ")
+                { pathVideoSaved = GetDataFromUrl.DownloadVideo(urlVideo); }
+                else
+                { pathVideoSaved = ""; }
 
+                string pathMedia = "";
+                if (pathVideoSaved!="") { pathMedia = pathVideoSaved; } else { pathMedia = pathImageSaved; }
                 // save to db xml
-                DatabaseXML.MainDatabase.saveXML(path_saved, noidung, pathImageSaved);
-                using (StreamWriter w = File.AppendText("crawler.txt"))
+                if (pathMedia!="")
                 {
-                    w.WriteLine(url);
+                    DatabaseXML.MainDatabase.saveXML(path_saved, noidung, pathMedia);
+                    using (StreamWriter w = File.AppendText("crawler.txt"))
+                    {
+                        w.WriteLine(url);
+                    }
                 }
+                
             }
+           
         }
     }
 }

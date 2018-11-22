@@ -11,17 +11,26 @@ namespace ContentIsKing.MasterK
         /*Lay ma html tu url*/
         public static string getHTML(string url)
         {
-            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
-            myRequest.Method = "GET";
-            myRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.2; rv:63.0) Gecko/20100101 Firefox/63.0";
+            try
+            {
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
+                myRequest.Method = "GET";
+                myRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.2; rv:63.0) Gecko/20100101 Firefox/63.0";
 
-            WebResponse myResponse = myRequest.GetResponse();
-            System.IO.StreamReader sr = new System.IO.StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
-            string result = sr.ReadToEnd();
-            sr.Close();
-            myResponse.Close();
+                WebResponse myResponse = myRequest.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
+                string result = sr.ReadToEnd();
+                sr.Close();
+                myResponse.Close();
+                return result;
+            }
+            catch
+            {
+                return "";
+            }
+           
 
-            return result;
+         
         }
 
         /*Lay noi dung va hinh anh POSTs tu HTML*/
@@ -45,12 +54,19 @@ namespace ContentIsKing.MasterK
             {
                 
                 PostContent postContent = new PostContent();
-                postContent.content =Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p>").Groups[2].Value;
+                s= Regex.Match(post_temp, @"userContent(.*?)<p>(.*?)<\/p>").Groups[2].Value;
+
+                postContent.content = s;
+
                 s = Regex.Match(post_temp, "scaledImageFitWidth img\" src=\"(.*?)\"").Groups[1].Value;
                 postContent.image = s.Replace("amp;", "");
-                string p = "<a href=\"(.*?)\\?__xts__";
-                s = "https://www.facebook.com" + Regex.Match(post_temp, p).Groups[1].Value;
-                postContent.video = s;
+                string p = "<a href=\"(.*?)href=\"(.*?)\\/\\?__xts__";
+                string sVideo = "";
+                sVideo = Regex.Match(post_temp, p).Groups[2].Value;
+                if (sVideo != "") {
+                    if (!sVideo.Contains("facebook.com")) 
+                    postContent.video = "https://www.facebook.com" + sVideo;
+                }
                 postContents.Add(postContent);
            }
           return postContents;
@@ -80,6 +96,32 @@ namespace ContentIsKing.MasterK
 
             return path;
         }
+
+
+        public static string DownloadVideo(string urlVideo)
+        {
+
+            string path = "";
+            string html = GetDataFromUrl.getHTML(urlVideo);
+
+           string sd = Regex.Match(html, "sd_src_no_ratelimit:\"(.*?)\"").Groups[1].Value;
+           string hd = Regex.Match(html, "hd_src:\"(.*?)\"").Groups[1].Value;
+            string pathUrl = " ";
+
+            // ut tien lay toc do sd, vi hd xenzu bi giat(chua co tinh nang tuy chon toc do)
+            if (sd != "") { pathUrl = sd; } else { pathUrl = hd; }
+                
+           if (pathUrl!="" )
+                using (var client = new WebClient())
+            {
+                    path = @"media\" + DateTime.Now.ToString("yyyyMMddTHHmmss.fff") + ".mp4";
+                    client.DownloadFile(pathUrl, path);
+            }
+
+            return path;
+        }
+
+
 
     }
 

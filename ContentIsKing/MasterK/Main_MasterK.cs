@@ -29,7 +29,7 @@ namespace ContentIsKing.MasterK
         // Post to xenzu
         static private void dispatcherTimer_Tick_Post(object sender, EventArgs e)
         {
-            string user = "nguyentrungkienctn";
+            string user = "nguyenthuylinhls";
             string pass = "cstd1234";
             string path = "db.xml";
             XElement x = DatabaseXML.MainDatabase.readXML(path);

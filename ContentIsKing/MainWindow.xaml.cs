@@ -1,4 +1,5 @@
-﻿using ContentIsKing.DatabaseXML;
+﻿using ContentIsKing.AddFriend_Comment;
+using ContentIsKing.DatabaseXML;
 using ContentIsKing.MasterK;
 using ContentIsKing.UI;
 using System;
@@ -46,15 +47,15 @@ namespace ContentIsKing
         {
             //Main_MasterK.hengio_crawler(360);
             // sau 2 gio post 1 lan
-            //Main_MasterK.hengio_post(180);
+            //  Main_MasterK.hengio_post(2);
 
 
             /*test*/
 
-            
-            
-           CrawlerFB.Crawrel("https://www.facebook.com/pg/CoongDDieencos.102/posts/", "db.xml");
 
+
+            //   CrawlerFB.Crawrel("https://www.facebook.com/pg/DienQuanEntertainment/posts", "db.xml");
+            addFriend_Xenzuu.addFriend_Xen();
 
         }
 
