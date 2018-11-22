@@ -88,7 +88,7 @@ namespace ContentIsKing.DatabaseXML
             else  return false;
         }
 
-         static void Insert(string path,string content,string pathImage)
+         static public void Insert(string path,string content,string pathImage)
         {
             string id = DateTime.Now.ToString("yyyyMMddTHHmmss.fff") ;
 
