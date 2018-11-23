@@ -1,4 +1,5 @@
-﻿using ContentIsKing.AddFriend_Comment;
+﻿using CefSharp.MinimalExample.WinForms;
+using ContentIsKing.AddFriend_Comment;
 using ContentIsKing.DatabaseXML;
 using ContentIsKing.MasterK;
 using ContentIsKing.UI;
@@ -46,7 +47,10 @@ namespace ContentIsKing
 
             var tab = tabMain.Items[0] as TabItem;
             tab.IsEnabled = true;
-            
+
+            bool s = Class_Login.ProcessLogin("key","u","p");
+
+
         }
 
         //crawler
