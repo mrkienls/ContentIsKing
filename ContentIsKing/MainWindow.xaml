@@ -5,45 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContentIsKing"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="377" Width="591">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Vertical">
-            <TextBox>Crawler sau ... phut</TextBox>
-            <TextBox>Post bai sau ... phut</TextBox>
-            <Button Content="Crawler va Post" Click="Button_Click"></Button>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1" Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <TextBox Text="url" Width="160" x:Name="txtUrlAdd"></TextBox>
-                <Button Content="Thêm" Click="cmdAddUrl"></Button>
-            </StackPanel>
+        <TabControl Margin="0,0,-2,0" x:Name="tabMain">
           
-            <ListView x:Name="listUrls">listview URLs for Crawler
-               
-            </ListView>
-        </StackPanel>
-     
+            <TabItem Header="Key">
+                <StackPanel>
+                    <TextBlock Text="Key"></TextBlock>
+                    <TextBox></TextBox>
+                    <Button Content="Check"></Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="CrawlerFB">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel  Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="url"  x:Name="txtUrlAdd"  Width="450"></TextBox>
+                            <Button Content="Thêm" Click="cmdAddUrl"></Button>
+                        </StackPanel>
+                        <ListView Height="250"  x:Name="listUrls">listview URLs for Crawler
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Height="30">
+                       
+                            <TextBlock Text="Crawler Minutes"></TextBlock>
+                            <TextBox Width="100" Background="#FFF5F2F2"></TextBox>
+                            <Button Content="Crawler va Post" Click="Button_Click"></Button>
+                     
+                        
+                      
+                    </StackPanel>
 
 
-        <!--<ListView >listview ACCs for Crawler</ListView>-->
-        <StackPanel Grid.Column="2" Grid.Row="1">
-            <TextBox Text="key"></TextBox>
-            <TextBox Text="UserXen"></TextBox>
-            <TextBox Text="PassXen"></TextBox>
-            <Button Grid.Column="2" Grid.Row="1" Content="Save" Click="Button_Click_1"></Button>
-        </StackPanel>
-       
 
+                </Grid>
+            </TabItem>
+            <TabItem Header="Xenzu">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Acc">
+                        <StackPanel >
+                            <TextBlock Text="User"></TextBlock>
+                            <TextBox Text=""></TextBox>
+                            <TextBlock Text="Pass"></TextBlock>
+                            <TextBox Text=""></TextBox>
+                            <Button  Content="Save" ></Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="AddFriends" Grid.Column="1">
+                        <StackPanel >
+                            <TextBlock Text="Friend Url"></TextBlock>
+                            <TextBox Text=""></TextBox>
+                            <Button  Content="Crawler" ></Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Post" Grid.Column="2">
+                        <StackPanel >
+                           <TextBlock Text="Minutes"></TextBlock>
+                            <TextBox Text=""></TextBox>
+                            <Button  Content="Schedule Post" ></Button>
+                        </StackPanel>
+                    </GroupBox>
 
+                </Grid>
+
+            </TabItem>
+        </TabControl>
     </Grid>
+
 </Window>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace ContentIsKing.AddFriend_Comment
 {
@@ -33,21 +34,28 @@ namespace ContentIsKing.AddFriend_Comment
                         name = Regex.Match(s, "href='pr\\/(.*?)'(.*?)id_user=(\\d+)").Groups[1].Value;
                         id = Regex.Match(s, "href='pr\\/(.*?)'(.*?)id_user=(\\d+)").Groups[3].Value;
 
-                        // addfirend:   get https://www.xenzuu.com/do.php?ac=add_friend&id=231992&align=0
+                      
                     }
 
                     MainDatabase.Insert(file, name, id);
                 }
             }
+
         }
-        public static void addFriend_Xen()
+        static void addFriendRequest(string id, CookieContainer _cookieJar)
         {
-            string user = "nguyenthuylinhls";
-            string pass = "cstd1234";
-            //login
-            var client = new RestClient("https://www.xenzuu.com/index.php");
+           string s = "https://www.xenzuu.com/do.php?ac=add_friend&id="+ id +"&align=0";
+            var client = new RestClient(s);
+            var request = new RestRequest(Method.GET);
+            client.CookieContainer = _cookieJar;
+            IRestResponse response = client.Execute(request);
+            string html = response.Content;
+        }
+
+        static bool login_Xen(RestClient client,string user, string pass, CookieContainer _cookieJar)
+        {
+        
             var request = new RestRequest(Method.POST);
-            CookieContainer _cookieJar = new CookieContainer();
             client.CookieContainer = _cookieJar;
 
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
@@ -65,13 +73,55 @@ namespace ContentIsKing.AddFriend_Comment
             // post
             if (html.ToLower().Contains("logout"))
             {
-                crawlerFriends("https://www.xenzuu.com/fl188228", "friends.xml");
-
-
+                return true;
             }
+            else  return false;
+        }
 
+        static void logout_Xen(RestClient client)
+        {
+            var request1 = new RestRequest(Method.GET);
+            request1.AddHeader("Referer", "https://www.xenzuu.com/index.php?mp=home");
+            request1.AddParameter("mp", "home");
+            request1.AddParameter("ac", "logout");
+            IRestResponse response2 = client.Execute(request1);
+        }
+
+        public static void CrawlerFriend_Xen()
+        {
+            string user = "nguyenthuylinhls";
+            string pass = "cstd1234";
+            var client = new RestClient("https://www.xenzuu.com/index.php");
+            CookieContainer _cookieJar = new CookieContainer();
+            //login
+            if (login_Xen(client,user, pass,_cookieJar))
+            {
+                crawlerFriends("https://www.xenzuu.com/fl188228", "friendsXen.xml");
+                logout_Xen(client);
+            }
             
         }
-       
+
+        public static void addFriend_Xen()
+        {
+            string user = "nguyenthuylinhls";
+            string pass = "cstd1234";
+            var client = new RestClient("https://www.xenzuu.com/index.php");
+            CookieContainer _cookieJar = new CookieContainer();
+            //login
+            if (login_Xen(client, user, pass,_cookieJar))
+            {
+                XElement xl = MainDatabase.readXML("friendsXen.xml");
+                string id = xl.Element("PathMedia").Value;
+                addFriendRequest(id, _cookieJar);
+                logout_Xen(client);
+
+                // xoa friend trong db
+                //abc
+            }
+
+
+        }
+
     }
 }

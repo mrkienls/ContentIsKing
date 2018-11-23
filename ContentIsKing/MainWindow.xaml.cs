@@ -38,8 +38,15 @@ namespace ContentIsKing
             InitializeComponent();
 
 
-           MainUI.LoadUrl(listUrls);  
+           MainUI.LoadUrl(listUrls);
+            foreach (var tabItem in tabMain.Items)
+            {
+                (tabItem as TabItem).IsEnabled = false;
+            }
 
+            var tab = tabMain.Items[0] as TabItem;
+            tab.IsEnabled = true;
+            
         }
 
         //crawler
@@ -55,6 +62,7 @@ namespace ContentIsKing
 
 
             //   CrawlerFB.Crawrel("https://www.facebook.com/pg/DienQuanEntertainment/posts", "db.xml");
+            // addFriend_Xenzuu.CrawlerFriend_Xen();
             addFriend_Xenzuu.addFriend_Xen();
 
         }
