@@ -38,21 +38,42 @@ namespace ContentIsKing
 
             InitializeComponent();
 
+            string s = "iSocialNetwork Version " + Properties.Settings.Default.version;
+  
 
+            
+        
+            
+            this.Title = s;
            MainUI.LoadUrl(listUrls);
-            foreach (var tabItem in tabMain.Items)
+        
+
+       
+
+            string key = Properties.Settings.Default.key;
+            bool pass = Class_Login.ProcessLogin(key);
+            if (pass)
             {
-                (tabItem as TabItem).IsEnabled = false;
+                var tab = tabMain.Items[1] as TabItem;
+                tab.Focus();
             }
-
-            var tab = tabMain.Items[0] as TabItem;
-            tab.IsEnabled = true;
-
-            bool s = Class_Login.ProcessLogin("key","u","p");
-
+            else
+            {
+                foreach (var tabItem in tabMain.Items)
+                {
+                    (tabItem as TabItem).IsEnabled = false;
+                }
+                var tab = tabMain.Items[0] as TabItem;
+                tab.IsEnabled = true;
+            }
 
         }
 
+        private void Hyperlink_RequestNavigate(object sender,
+                                       System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
+        }
         //crawler
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -80,10 +101,34 @@ namespace ContentIsKing
 
         private void cmdAddUrl(object sender, RoutedEventArgs e)
         {
-            //  MessageBox.Show(txtUrlAdd.Text);
             MainUI.AddUrl(txtUrlAdd.Text, listUrls);
         }
-        
 
+        private void cmdCheckKey(object sender, RoutedEventArgs e)
+        {
+            bool pass = Class_Login.ProcessLogin(txtKey.Text);
+            if (pass)
+            {
+                MessageBox.Show("Login Success");
+                foreach (var tabItem in tabMain.Items)
+                {
+                    (tabItem as TabItem).IsEnabled = true;
+                }
+
+                // save key
+                Properties.Settings.Default.key = txtKey.Text;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                MessageBox.Show("key chua dung. Lien he kiennguyen.mobe@gmail.com hoac facebook  https://www.facebook.com/kiennguyenmobe  de lay key");
+                foreach (var tabItem in tabMain.Items)
+                {
+                    (tabItem as TabItem).IsEnabled = false;
+                }
+                var tab = tabMain.Items[0] as TabItem;
+                tab.IsEnabled = true;
+            }
+        }
     }
 }

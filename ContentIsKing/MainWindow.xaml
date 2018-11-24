@@ -6,14 +6,21 @@
         xmlns:local="clr-namespace:ContentIsKing"
         mc:Ignorable="d"
         Title="MainWindow" Height="377" Width="591">
+   
     <Grid>
-        <TabControl Margin="0,0,-2,0" x:Name="tabMain">
-          
+        <TextBlock HorizontalAlignment="Left">
+            author:
+                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" 
+                 NavigateUri="https://www.facebook.com/kiennguyenmobe">
+                     https://www.facebook.com/kiennguyenmobe </Hyperlink>
+        </TextBlock>
+
+        <TabControl Margin="0,16,-2,0" x:Name="tabMain">
             <TabItem Header="Key">
                 <StackPanel>
                     <TextBlock Text="Key"></TextBlock>
-                    <TextBox></TextBox>
-                    <Button Content="Check"></Button>
+                    <TextBox x:Name="txtKey"></TextBox>
+                    <Button Content="Check" Click="cmdCheckKey"></Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="CrawlerFB">

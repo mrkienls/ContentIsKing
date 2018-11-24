@@ -1,8 +1,7 @@
-﻿using System.Net;
+﻿
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
-
-
 
 namespace CefSharp.MinimalExample.WinForms
 {
@@ -40,7 +39,7 @@ namespace CefSharp.MinimalExample.WinForms
          2. Check URLs neu co thi send request - gia lap luot web
          3. Check Version: neu co version moi thi dua ra thong bao cap nhat    
          */
-        public static bool ProcessLogin(string keyUser, string userXenzuu,string passXenzuu)
+        public static bool ProcessLogin(string keyUser)
         {
             string[] sLogin = new string[] { };
             sLogin = getFileLogin();
@@ -60,11 +59,12 @@ namespace CefSharp.MinimalExample.WinForms
             if (CheckVersion(old_version, new_version))
             {
                 MessageBox.Show(v[1]);
+               
+
             }
+                //1. Check key
 
-            //1. Check key
-
-            if (CheckLogin(key,keyUser))
+                if (CheckLogin(key,keyUser))
             {
             
                 return true;

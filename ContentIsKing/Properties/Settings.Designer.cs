@@ -25,13 +25,25 @@ namespace ContentIsKing.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0")]
         public string version {
             get {
                 return ((string)(this["version"]));
             }
             set {
                 this["version"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("khuyenhap12345678")]
+        public string key {
+            get {
+                return ((string)(this["key"]));
+            }
+            set {
+                this["key"] = value;
             }
         }
     }
