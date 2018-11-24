@@ -38,15 +38,18 @@ namespace ContentIsKing
 
             InitializeComponent();
 
+            // init
             string s = "iSocialNetwork Version " + Properties.Settings.Default.version;
-  
-
-            
-        
-            
             this.Title = s;
-           MainUI.LoadUrl(listUrls);
-        
+            txtMinuteCrawlerFB.Text = "540";
+            txtMinuteAddFriends_Xen.Text = "60";
+            txtMinutesPost_Xen.Text = "360";
+
+            txtUserXen.Text = Properties.Settings.Default.userXen;
+            txtPassXen.Password = Properties.Settings.Default.passXen;
+
+            MainUI.LoadUrl(listUrls);
+            // end init
 
        
 
@@ -75,20 +78,24 @@ namespace ContentIsKing
             System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
         }
         //crawler
+
+        //private void HandleCheck(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("Button is Checked");
+        //}
+
+        //private void HandleUnchecked(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("Button is unchecked.");
+        //}
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Main_MasterK.hengio_crawler(360);
-            // sau 2 gio post 1 lan
-            //  Main_MasterK.hengio_post(2);
-
-
-            /*test*/
-
-
-
-            //   CrawlerFB.Crawrel("https://www.facebook.com/pg/DienQuanEntertainment/posts", "db.xml");
-            // addFriend_Xenzuu.CrawlerFriend_Xen();
-            addFriend_Xenzuu.addFriend_Xen();
+            Main_MasterK.hengio_crawler(Convert.ToInt32(txtMinuteCrawlerFB.Text));
+            txtMessageCrawlerFB.Text = "Scheduled crawler FB after " + txtMinuteCrawlerFB.Text + " minutes.";
+            cmdCrawlerFB.IsEnabled = false;
+            listUrls.IsEnabled = false;
+            buttonAddUrl.IsEnabled = false;
 
         }
 
@@ -129,6 +136,40 @@ namespace ContentIsKing
                 var tab = tabMain.Items[0] as TabItem;
                 tab.IsEnabled = true;
             }
+        }
+
+        private void cmdSaveUserXen(object sender, RoutedEventArgs e)
+        {
+            
+            Properties.Settings.Default.userXen = txtUserXen.Text;
+            Properties.Settings.Default.passXen = txtPassXen.Password;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            string user = Properties.Settings.Default.userXen;
+            string pass = Properties.Settings.Default.passXen;
+            string url = txtUrlFriend_Xen.Text;
+            addFriend_Xenzuu.CrawlerFriend_Xen(user, pass, url);
+            string s = "";
+            s += MainDatabase.GetCout("friendsXen.xml", "TrangThai", "0").ToString();
+            s += " users is waiting you.";
+            txtMessageFriendsCount.Text = s;
+        }
+
+        private void cmdAddFriend_Xen(object sender, RoutedEventArgs e)
+        {
+            addFriend_Xenzuu.hengio_addFriend_Xen(Convert.ToInt32(txtMinuteAddFriends_Xen.Text));
+            cmdCrawlerFriend_Xen.IsEnabled = false;
+            buttonAddFriend_Xen.IsEnabled = false;
+        }
+
+        private void Click_Post(object sender, RoutedEventArgs e)
+        {
+            int minute = Convert.ToInt32(txtMinutesPost_Xen.Text);
+              Main_MasterK.hengio_post(minute);
+            
         }
     }
 }

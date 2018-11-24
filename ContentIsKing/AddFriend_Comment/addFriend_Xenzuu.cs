@@ -14,6 +14,27 @@ namespace ContentIsKing.AddFriend_Comment
     public static class addFriend_Xenzuu
     {
 
+        // hen gio add Friend 
+
+        static public void hengio_addFriend_Xen(int phut)
+        {
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick_AddFriend);
+            dispatcherTimer.Interval = new TimeSpan(0, phut, 0);
+            dispatcherTimer.Start();
+
+        }
+
+        static private void dispatcherTimer_Tick_AddFriend(object sender, EventArgs e)
+        {
+            string user = Properties.Settings.Default.userXen;
+            string pass = Properties.Settings.Default.passXen;
+            addFriend_Xen(user, pass);
+
+        }
+
+
+
         static void crawlerFriends(string url, string file)
         {
            
@@ -87,25 +108,23 @@ namespace ContentIsKing.AddFriend_Comment
             IRestResponse response2 = client.Execute(request1);
         }
 
-        public static void CrawlerFriend_Xen()
+        public static void CrawlerFriend_Xen(string user, string pass, string url)
         {
-            string user = "nguyenthuylinhls";
-            string pass = "cstd1234";
+    
+     
             var client = new RestClient("https://www.xenzuu.com/index.php");
             CookieContainer _cookieJar = new CookieContainer();
             //login
             if (login_Xen(client,user, pass,_cookieJar))
             {
-                crawlerFriends("https://www.xenzuu.com/fl188228", "friendsXen.xml");
+                crawlerFriends(url, "friendsXen.xml");
                 logout_Xen(client);
             }
             
         }
 
-        public static void addFriend_Xen()
+        public static void addFriend_Xen(string user, string pass)
         {
-            string user = "nguyenthuylinhls";
-            string pass = "cstd1234";
             var client = new RestClient("https://www.xenzuu.com/index.php");
             CookieContainer _cookieJar = new CookieContainer();
             //login
@@ -113,11 +132,12 @@ namespace ContentIsKing.AddFriend_Comment
             {
                 XElement xl = MainDatabase.readXML("friendsXen.xml");
                 string id = xl.Element("PathMedia").Value;
+                string name = xl.Element("Content").Value;
                 addFriendRequest(id, _cookieJar);
                 logout_Xen(client);
 
-                // xoa friend trong db
-                //abc
+                // update TrangThai friend da add =1
+                MainDatabase.Update("friendsXen.xml", name, "1");
             }
 
 

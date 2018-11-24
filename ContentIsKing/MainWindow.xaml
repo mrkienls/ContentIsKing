@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ContentIsKing"
         mc:Ignorable="d"
         Title="MainWindow" Height="377" Width="591">
-   
+
     <Grid>
         <TextBlock HorizontalAlignment="Left">
             author:
@@ -18,36 +18,43 @@
         <TabControl Margin="0,16,-2,0" x:Name="tabMain">
             <TabItem Header="Key">
                 <StackPanel>
-                    <TextBlock Text="Key"></TextBlock>
-                    <TextBox x:Name="txtKey"></TextBox>
+                    <TextBlock Text="Key"></TextBlock> 
+                    <TextBox  x:Name="txtKey"></TextBox>
                     <Button Content="Check" Click="cmdCheckKey"></Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="CrawlerFB">
 
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="127*"/>
+                        <ColumnDefinition Width="452*"/>
+                    </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
                         <RowDefinition ></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <StackPanel  Grid.Row="0">
+                    <StackPanel  Grid.Row="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBox Text="url"  x:Name="txtUrlAdd"  Width="450"></TextBox>
-                            <Button Content="Thêm" Click="cmdAddUrl"></Button>
+                            <Button x:Name="buttonAddUrl" Content="Thêm" Click="cmdAddUrl"></Button>
                         </StackPanel>
                         <ListView Height="250"  x:Name="listUrls">listview URLs for Crawler
                         </ListView>
                     </StackPanel>
+                    <!--<ToggleButton x:Name = "tb" Content = "Toggle"  
+         Checked = "HandleCheck" Unchecked = "HandleUnchecked" Margin = "20"
+        HorizontalAlignment = "Center" />-->
 
-                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Height="30">
-                       
-                            <TextBlock Text="Crawler Minutes"></TextBlock>
-                            <TextBox Width="100" Background="#FFF5F2F2"></TextBox>
-                            <Button Content="Crawler va Post" Click="Button_Click"></Button>
-                     
-                        
-                      
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Height="30" Grid.ColumnSpan="2" Margin="0,10">
+
+                        <TextBlock Text="Crawler Minutes"></TextBlock>
+                        <TextBox x:Name="txtMinuteCrawlerFB" Width="100" Background="#FFF5F2F2"></TextBox>
+                        <Button x:Name="cmdCrawlerFB" Content="Crawler va Post" Click="Button_Click"></Button>
+
+                        <TextBlock x:Name="txtMessageCrawlerFB" Foreground="#FF180EE6"></TextBlock>
+
                     </StackPanel>
 
 
@@ -64,24 +71,30 @@
                     <GroupBox Header="Acc">
                         <StackPanel >
                             <TextBlock Text="User"></TextBlock>
-                            <TextBox Text=""></TextBox>
+                            <TextBox x:Name="txtUserXen" Text=""></TextBox>
                             <TextBlock Text="Pass"></TextBlock>
-                            <TextBox Text=""></TextBox>
-                            <Button  Content="Save" ></Button>
+                            <PasswordBox  PasswordChar="*" x:Name="txtPassXen"></PasswordBox>
+                            <Button  Content="Save" Click="cmdSaveUserXen" ></Button>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="AddFriends" Grid.Column="1">
                         <StackPanel >
                             <TextBlock Text="Friend Url"></TextBlock>
-                            <TextBox Text=""></TextBox>
-                            <Button  Content="Crawler" ></Button>
+                            <TextBox x:Name="txtUrlFriend_Xen"></TextBox>
+                            <Button  x:Name="cmdCrawlerFriend_Xen" Content="Crawler" Click="Button_Click_2" ></Button>
+                            <TextBlock x:Name="txtMessageFriendsCount" Foreground="#FF04F746"></TextBlock>
+
+                            <TextBlock Text="Minutes add friends"></TextBlock>
+                            <TextBox x:Name="txtMinuteAddFriends_Xen"></TextBox>
+                            <Button  x:Name="buttonAddFriend_Xen" Content="Schedule Add Friend" Click="cmdAddFriend_Xen" ></Button>
+
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Post" Grid.Column="2">
                         <StackPanel >
-                           <TextBlock Text="Minutes"></TextBlock>
-                            <TextBox Text=""></TextBox>
-                            <Button  Content="Schedule Post" ></Button>
+                            <TextBlock Text="Minutes"></TextBlock>
+                            <TextBox x:Name="txtMinutesPost_Xen"></TextBox>
+                            <Button x:Name="btnSchedulePost_Xen" Click="Click_Post"  Content="Schedule Post" ></Button>
                         </StackPanel>
                     </GroupBox>
 

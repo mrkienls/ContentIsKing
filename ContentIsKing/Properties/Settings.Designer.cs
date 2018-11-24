@@ -37,13 +37,37 @@ namespace ContentIsKing.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("khuyenhap12345678")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string key {
             get {
                 return ((string)(this["key"]));
             }
             set {
                 this["key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userXen {
+            get {
+                return ((string)(this["userXen"]));
+            }
+            set {
+                this["userXen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string passXen {
+            get {
+                return ((string)(this["passXen"]));
+            }
+            set {
+                this["passXen"] = value;
             }
         }
     }

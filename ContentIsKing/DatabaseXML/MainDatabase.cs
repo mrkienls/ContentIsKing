@@ -70,6 +70,18 @@ namespace ContentIsKing.DatabaseXML
         }
 
 
+        public static int GetCout(string path,string element, string value)
+        {
+            int soluong = 0;
+            XDocument xdoc = XDocument.Load(path);
+            try
+            {
+                soluong = xdoc.Element("Posts").Elements("Post").Where(x => x.Element(element).Value == value).Count();
+            }
+            catch { }
+            return soluong;
+        }
+
         // neu content da co trong file thi return true
         static bool content_exists(string path, string content)
         {
