@@ -18,16 +18,21 @@
         <TabControl Margin="0,16,-2,0" x:Name="tabMain">
             <TabItem Header="Key">
                 <StackPanel>
-                    <TextBlock Text="Key"></TextBlock> 
+                    <TextBlock Text="Key"></TextBlock>
                     <TextBox  x:Name="txtKey"></TextBox>
                     <Button Content="Check" Click="cmdCheckKey"></Button>
+                    <WebBrowser x:Name="webBrowser" Height="300" Width="500"></WebBrowser>
+
                 </StackPanel>
             </TabItem>
             <TabItem Header="CrawlerFB">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="127*"/>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="8*"/>
                         <ColumnDefinition Width="452*"/>
                     </Grid.ColumnDefinitions>
 
@@ -35,7 +40,7 @@
                         <RowDefinition ></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <StackPanel  Grid.Row="0" Grid.ColumnSpan="2">
+                    <StackPanel  Grid.Row="0" Grid.ColumnSpan="5">
                         <StackPanel Orientation="Horizontal">
                             <TextBox Text="url"  x:Name="txtUrlAdd"  Width="450"></TextBox>
                             <Button x:Name="buttonAddUrl" Content="Thêm" Click="cmdAddUrl"></Button>
@@ -47,14 +52,15 @@
          Checked = "HandleCheck" Unchecked = "HandleUnchecked" Margin = "20"
         HorizontalAlignment = "Center" />-->
 
-                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Height="30" Grid.ColumnSpan="2" Margin="0,10">
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Height="30" Grid.ColumnSpan="5" Margin="0,10">
 
                         <TextBlock Text="Crawler Minutes"></TextBlock>
                         <TextBox x:Name="txtMinuteCrawlerFB" Width="100" Background="#FFF5F2F2"></TextBox>
-                        <Button x:Name="cmdCrawlerFB" Content="Crawler va Post" Click="Button_Click"></Button>
+                        <Button x:Name="cmdCrawlerFB" Content="Crawler va Post" Click="Button_Click"/>
 
-                        <TextBlock x:Name="txtMessageCrawlerFB" Foreground="#FF180EE6"></TextBlock>
-
+                        <!--<TextBlock x:Name="txtMessageCrawlerFB" Foreground="#FF180EE6"></TextBlock>-->
+                        <ProgressBar Minimum="0" Maximum="100" Height="20" Width="150" x:Name="pbCrawlerFB"></ProgressBar>
+                        <TextBlock Text="{Binding ElementName=pbCrawlerFB, Path=Value, StringFormat={}{0:0}s}" ></TextBlock>
                     </StackPanel>
 
 
@@ -83,11 +89,13 @@
                             <TextBox x:Name="txtUrlFriend_Xen"></TextBox>
                             <Button  x:Name="cmdCrawlerFriend_Xen" Content="Crawler" Click="Button_Click_2" ></Button>
                             <TextBlock x:Name="txtMessageFriendsCount" Foreground="#FF04F746"></TextBlock>
+                           
 
                             <TextBlock Text="Minutes add friends"></TextBlock>
                             <TextBox x:Name="txtMinuteAddFriends_Xen"></TextBox>
                             <Button  x:Name="buttonAddFriend_Xen" Content="Schedule Add Friend" Click="cmdAddFriend_Xen" ></Button>
-
+                            <ProgressBar   Height="20" Width="150" x:Name="pbAddFriend_xen"></ProgressBar>
+                            <TextBlock Text="{Binding ElementName=pbAddFriend_xen, Path=Value, StringFormat={}{0:0}s}" ></TextBlock>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Post" Grid.Column="2">
@@ -95,6 +103,9 @@
                             <TextBlock Text="Minutes"></TextBlock>
                             <TextBox x:Name="txtMinutesPost_Xen"></TextBox>
                             <Button x:Name="btnSchedulePost_Xen" Click="Click_Post"  Content="Schedule Post" ></Button>
+                            <ProgressBar Minimum="0" Maximum="100" Height="20" Width="150" x:Name="pbSchedulePost"></ProgressBar>
+                            <TextBlock Text="{Binding ElementName=pbSchedulePost, Path=Value, StringFormat={}{0:0}s}" ></TextBlock>
+
                         </StackPanel>
                     </GroupBox>
 

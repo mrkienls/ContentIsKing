@@ -7,6 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 using System.Xml.Linq;
 
 namespace ContentIsKing.AddFriend_Comment
@@ -16,20 +19,34 @@ namespace ContentIsKing.AddFriend_Comment
 
         // hen gio add Friend 
 
-        static public void hengio_addFriend_Xen(int phut)
+        static public void hengio_addFriend_Xen(int phut, ProgressBar pb)
         {
+            pb.Minimum = 0;
+            pb.Maximum = phut * 60;
+            pb.Value = pb.Maximum;
+
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick_AddFriend);
-            dispatcherTimer.Interval = new TimeSpan(0, phut, 0);
+            dispatcherTimer.Tick += (sender, e) => { dispatcherTimer_Tick_AddFriend(sender, e, pb,pb.Maximum); };
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
         }
 
-        static private void dispatcherTimer_Tick_AddFriend(object sender, EventArgs e)
+        static private void dispatcherTimer_Tick_AddFriend(object sender, EventArgs e, ProgressBar pb, double max)
         {
-            string user = Properties.Settings.Default.userXen;
-            string pass = Properties.Settings.Default.passXen;
-            addFriend_Xen(user, pass);
+
+            pb.Value--;
+            if (pb.Value == 0)
+            {
+                pb.Value = max;
+                string user = Properties.Settings.Default.userXen;
+                string pass = Properties.Settings.Default.passXen;
+                //Thread threadAddFriendXen = new Thread(() => addFriend_Xen(user, pass));
+                //threadAddFriendXen.Start();
+
+                addFriend_Xen(user, pass);
+            }
+
 
         }
 

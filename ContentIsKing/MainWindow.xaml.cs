@@ -29,48 +29,51 @@ namespace ContentIsKing
     /// </summary>
     public partial class MainWindow : Window
     {
+
+  
         public MainWindow()
         {
-
-
-         
-
-
+            
             InitializeComponent();
 
+
+           
+
             // init
-            string s = "iSocialNetwork Version " + Properties.Settings.Default.version;
-            this.Title = s;
-            txtMinuteCrawlerFB.Text = "540";
-            txtMinuteAddFriends_Xen.Text = "60";
-            txtMinutesPost_Xen.Text = "360";
+            //string s = "MNM " + Properties.Settings.Default.version;
+            //this.Title = s;
+            //txtMinuteCrawlerFB.Text = "540";
+            //txtMinuteAddFriends_Xen.Text = "60";
+            //txtMinutesPost_Xen.Text = "360";
 
-            txtUserXen.Text = Properties.Settings.Default.userXen;
-            txtPassXen.Password = Properties.Settings.Default.passXen;
+            //txtUserXen.Text = Properties.Settings.Default.userXen;
+            //txtPassXen.Password = Properties.Settings.Default.passXen;
 
-            MainUI.LoadUrl(listUrls);
-            // end init
+            //MainUI.LoadUrl(listUrls);
+            //// end init
 
-       
 
-            string key = Properties.Settings.Default.key;
-            bool pass = Class_Login.ProcessLogin(key);
-            if (pass)
-            {
-                var tab = tabMain.Items[1] as TabItem;
-                tab.Focus();
-            }
-            else
-            {
-                foreach (var tabItem in tabMain.Items)
-                {
-                    (tabItem as TabItem).IsEnabled = false;
-                }
-                var tab = tabMain.Items[0] as TabItem;
-                tab.IsEnabled = true;
-            }
+
+            //string key = Properties.Settings.Default.key;
+            //bool pass = Class_Login.ProcessLogin(key);
+            //if (pass)
+            //{
+            //    var tab = tabMain.Items[1] as TabItem;
+            //    tab.Focus();
+            //}
+            //else
+            //{
+            //    foreach (var tabItem in tabMain.Items)
+            //    {
+            //        (tabItem as TabItem).IsEnabled = false;
+            //    }
+            //    var tab = tabMain.Items[0] as TabItem;
+            //    tab.IsEnabled = true;
+            //}
 
         }
+
+        
 
         private void Hyperlink_RequestNavigate(object sender,
                                        System.Windows.Navigation.RequestNavigateEventArgs e)
@@ -91,8 +94,13 @@ namespace ContentIsKing
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Main_MasterK.hengio_crawler(Convert.ToInt32(txtMinuteCrawlerFB.Text));
-            txtMessageCrawlerFB.Text = "Scheduled crawler FB after " + txtMinuteCrawlerFB.Text + " minutes.";
+            int minute = Convert.ToInt32(txtMinuteCrawlerFB.Text);
+            Main_MasterK.hengio_crawler(minute, pbCrawlerFB);
+
+          
+         //   txtMessageCrawlerFB.Text = "Scheduled crawler FB after " + txtMinuteCrawlerFB.Text + " minutes.";
+
+
             cmdCrawlerFB.IsEnabled = false;
             listUrls.IsEnabled = false;
             buttonAddUrl.IsEnabled = false;
@@ -109,6 +117,7 @@ namespace ContentIsKing
         private void cmdAddUrl(object sender, RoutedEventArgs e)
         {
             MainUI.AddUrl(txtUrlAdd.Text, listUrls);
+            txtUrlAdd.Text = "";
         }
 
         private void cmdCheckKey(object sender, RoutedEventArgs e)
@@ -160,7 +169,11 @@ namespace ContentIsKing
 
         private void cmdAddFriend_Xen(object sender, RoutedEventArgs e)
         {
-            addFriend_Xenzuu.hengio_addFriend_Xen(Convert.ToInt32(txtMinuteAddFriends_Xen.Text));
+            
+
+            int minute = Convert.ToInt32(txtMinuteAddFriends_Xen.Text);
+            addFriend_Xenzuu.hengio_addFriend_Xen(minute,pbAddFriend_xen);
+
             cmdCrawlerFriend_Xen.IsEnabled = false;
             buttonAddFriend_Xen.IsEnabled = false;
         }
@@ -168,7 +181,8 @@ namespace ContentIsKing
         private void Click_Post(object sender, RoutedEventArgs e)
         {
             int minute = Convert.ToInt32(txtMinutesPost_Xen.Text);
-              Main_MasterK.hengio_post(minute);
+              Main_MasterK.hengio_post(minute,pbSchedulePost);
+            btnSchedulePost_Xen.IsEnabled = false;
             
         }
     }
