@@ -36,10 +36,8 @@ namespace ContentIsKing
             
             InitializeComponent();
 
-
-           
-
-            // init
+            Minds.http_post("content","path","kienmnm","Mnm@1234");
+                // init
             //string s = "MNM " + Properties.Settings.Default.version;
             //this.Title = s;
             //txtMinuteCrawlerFB.Text = "540";

@@ -2,9 +2,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +15,52 @@ namespace ContentIsKing
 {
     public static class Minds
     {
+        public static void http_post(string content, string pathImage, string user, string pass)
+        {
+            
+    
+
+            var client = new RestClient("https://www.minds.com/login");
+            var request = new RestRequest(Method.GET);
+            CookieContainer _cookieJar = new CookieContainer();
+            client.CookieContainer = _cookieJar;
+
+         //   ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+       //     ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            //request.AddHeader("Host", "www.minds.com");
+            request.AddHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; rv:63.0) Gecko/20100101 Firefox/63.0");
+            request.AddHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            request.AddHeader("Accept-Language", "en-US,en;q=0.5");
+            request.AddHeader("Accept-Encoding", "gzip, deflate, br");
+            request.AddHeader("DNT", "1");
+          //  request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Upgrade-Insecure-Requests", "1");
+            //request.AddHeader("TE", "Trailers");
+        
+
+
+            IRestResponse response = client.Execute(request);
+            string XSRF_TOKEN = response.Cookies[0].Value;
+
+            // post
+            client.BaseUrl="https://www.minds.com/api/v1/authenticate";
+            var request1 = new RestRequest(Method.POST);
+            request1.AddHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; rv:63.0) Gecko/20100101 Firefox/63.0");
+            request1.AddHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            request1.AddHeader("Accept-Language", "en-US,en;q=0.5");
+            request1.AddHeader("Accept-Encoding", "gzip, deflate, br");
+            request1.AddHeader("X-XSRF-TOKEN", XSRF_TOKEN);
+
+            request1.AddParameter("username", "kienmnm");
+            request1.AddParameter("password", "Mnm@1234");
+            IRestResponse response1 = client.Execute(request1);
+
+            string html = response1.Content;
+        }
+
+
 
         public static void webtalk(string user, string pass, string content, string pathMedia)
         {
